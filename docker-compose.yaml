@@ -1,0 +1,42 @@
+services:
+  openpcdet:
+    image: aloam
+    env_file:
+      - .env
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: ros:aloam
+        HOST_UID: $HOST_UID
+        HOST_GID: $HOST_GID
+        HOST_USER: $HOST_USER
+    container_name: aloam
+    user: $HOST_UID:$HOST_GID
+    volumes:
+      - .:/home/$HOST_USER/ros_ws/src/A-LOAM
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - $HOME/.ssh:/home/$HOST_USER/.ssh
+      - $HOME/.config:/home/$HOST_USER/.config
+      - $HOME/.gitconfig:/home/$HOST_USER/.gitconfig
+      # - ~/DATA/NAS/nfsRoot:/Dataset
+      - $HOME/Dataset:/Dataset
+    working_dir: /home/$HOST_USER/ros_ws
+    environment:
+      - DISPLAY=$DISPLAY
+      - QT_X11_NO_MITSHM=1
+      - TZ="Asia/Seoul"
+    privileged: true
+    network_mode: host
+    stdin_open: true
+    tty: true
+    ipc: host
+    pid: host
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
+              count: all
