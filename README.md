@@ -48,7 +48,7 @@ Download [KITTI Odometry dataset](http://www.cvlibs.net/datasets/kitti/eval_odom
     roslaunch aloam_velodyne aloam_velodyne_HDL_64.launch
     roslaunch aloam_velodyne kitti_helper.launch
 ```
-<img src="https://github.com/JongRok-Lee/picture/kitti_gif.gif" width = 720 height = 351 />
+<img src="./picture/kitti_gif.gif" width = 720 height = 351 />
 
 ## 5. Docker Support
 Change the HOST_USER in`.env` file to your username, then run the following command to build the docker image.
